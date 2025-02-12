@@ -1,3 +1,4 @@
+release/backend.o
 release/dashboard.o
 release/login.o
 release/main.o

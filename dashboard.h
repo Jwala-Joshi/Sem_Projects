@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QBoxLayout>
+#include <QProgressBar>
 
 namespace Ui {
 class Dashboard;
@@ -18,6 +19,7 @@ class Dashboard : public QWidget
 public:
     explicit Dashboard(QWidget *parent = nullptr);
     ~Dashboard();
+    void setUsername(const QString &username);
 
 private:
     Ui::Dashboard *ui;
@@ -31,6 +33,12 @@ private:
     QLabel *lblWelcome;
     QLabel *lblCurrentWorkouts;
     QLabel *lblCurrentChallenges;
+
+    QWidget *currentWorkoutsWidget;
+    QWidget *currentChallengesWidget;
+
+    QVBoxLayout *lytWorkouts;
+    QVBoxLayout *lytChallenges;
 };
 
 #endif // DASHBOARD_H

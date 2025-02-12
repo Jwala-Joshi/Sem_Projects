@@ -19,6 +19,10 @@ public:
     explicit Login(QWidget *parent = nullptr);
     ~Login();
 
+private slots:
+    void onSignUpClicked(const QString &);
+    void onbtnLoginClicked();
+
 private:
     Ui::Login *ui;
     QLabel *lblUsername;

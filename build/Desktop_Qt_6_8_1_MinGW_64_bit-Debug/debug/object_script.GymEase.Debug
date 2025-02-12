@@ -1,3 +1,4 @@
+debug/backend.o
 debug/dashboard.o
 debug/login.o
 debug/main.o

@@ -19,6 +19,10 @@ public:
     explicit SignUp(QWidget *parent = nullptr);
     ~SignUp();
 
+private slots:
+    void onLoginClicked(const QString &s_link);
+    void onbtnSignUpClicked();
+
 private:
     Ui::SignUp *ui;
     QLabel *lblName;

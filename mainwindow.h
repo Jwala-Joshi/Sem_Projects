@@ -17,6 +17,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::MainWindow *ui;
 };

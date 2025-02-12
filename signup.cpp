@@ -1,5 +1,8 @@
 #include "signup.h"
 #include "ui_signup.h"
+#include "login.h"
+#include "backend.h"
+#include "dashboard.h"
 
 SignUp::SignUp(QWidget *parent)
     : QWidget(parent)
@@ -29,7 +32,10 @@ SignUp::SignUp(QWidget *parent)
 
     lblAcc = new QLabel(this);
     lblAcc->setGeometry(100,160,200,30);
-    lblAcc->setText("Already have an account? Login now.");
+    lblAcc->setText("Already have an account?<a href='login'><i> Login</i></a> now.");
+    lblAcc->setTextFormat(Qt::RichText);
+    lblAcc->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    lblAcc->setOpenExternalLinks(false);
 
     txtName = new QLineEdit(this);
     txtName->setGeometry(120,10,200,30);
@@ -48,9 +54,43 @@ SignUp::SignUp(QWidget *parent)
     btnSignUp->setGeometry(130,190,150,30);
     btnSignUp->setText("Sign Up");
 
+    connect(lblAcc, &QLabel::linkActivated,this ,&SignUp::onLoginClicked);
+    connect(btnSignUp, &QPushButton::clicked,this , &SignUp::onbtnSignUpClicked);
 }
 
 SignUp::~SignUp()
 {
     delete ui;
+}
+
+void SignUp::onLoginClicked(const QString &s_link){
+    if(s_link == "login") {
+        Login *login =new Login();
+        login->show();
+        this->close();
+    }
+}
+
+void SignUp::onbtnSignUpClicked() {
+    QString name =txtName->text();
+    QString username =txtUsername->text();
+    QString password =txtPassword->text();
+    // QString confirmPassword =txtConfirmPassword->text();
+    QString key =txtKey->text();
+
+    user newUser;
+    newUser.setData(const_cast<char*>(name.toStdString().c_str()),
+                     const_cast<char*>(username.toStdString().c_str()),
+                     const_cast<char*>(password.toStdString().c_str()),
+                     key.toInt() );
+    bool isRegistered = setNewUser(newUser);
+    if(!isRegistered) {
+        QMessageBox::critical(this, "Sign Up Unsuccessful","Please Try Again!");
+    }
+    else {
+    QMessageBox::information(this, "Sign Up Successful", "Welcome, username!");
+    Dashboard *dashboard = new Dashboard();
+    dashboard->show();
+    this->close();
+    }
 }
