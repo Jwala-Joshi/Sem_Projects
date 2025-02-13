@@ -18,7 +18,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_boxEnter_clicked();
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::MainWindow *ui;
