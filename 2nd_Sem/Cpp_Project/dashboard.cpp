@@ -231,7 +231,7 @@ Dashboard::Dashboard(const QString& username,const QString& password,QWidget *pa
 
                     for(int j=1;j<6;j++){
                         QLabel *cexercise =new QLabel (dFile2.readLine());
-                        // dFile2.readLine();
+                        dFile2.readLine();
                         cexercise->setStyleSheet("font-size:14px");
                         dashboardLayout->addWidget(cexercise);
                         qDebug()<< j << '\n';
@@ -312,7 +312,7 @@ Dashboard::Dashboard(const QString& username,const QString& password,QWidget *pa
     challengesLayout->addWidget(lblChallenges);
 
     //File all Challenges
-    QString currentChallenge;
+    QString currentChallenge,tmp;
     QLabel *emChallenge =new QLabel;
     QFile challengeFile(path + "challenge.txt");
 
@@ -334,12 +334,19 @@ Dashboard::Dashboard(const QString& username,const QString& password,QWidget *pa
 
             currentChallenge =cTitle->text() + "\n";
             qDebug()<<currentChallenge;
-            for(int j=1;j<6;j++){
-                QLabel *cexercise =new QLabel (cFile.readLine());
-                cFile.readLine();
-                cexercise->setStyleSheet("font-size:14px");
-                challengesLayout->addWidget(cexercise);
-                currentChallenge +=cexercise->text() + "\n";
+
+            for(int i=1;i<11;i++) {
+                tmp=cFile.readLine();
+                currentChallenge +=tmp + "\n";
+                qDebug() << "first" << i;
+                if(i%2 != 0){
+                    qDebug() << "sencond" << i;
+                    QLabel *cexercise =new QLabel (QString(tmp));
+                    qDebug() << cexercise->text();
+                    cexercise->setStyleSheet("font-size:14px");
+                    challengesLayout->addWidget(cexercise);
+                    // currentChallenge +=cexercise->text() + "\n";
+                }
             }
             QPushButton *btnAdd= new QPushButton("Add",challengesContent);
             btnAdd->setFixedWidth(80);

@@ -173,6 +173,7 @@ void changeUsername(user& u, char usern[100]){
            challengeFile.getline(details[3],100)&&challengeFile.getline(reps[3],100)&&
            challengeFile.getline(details[4],100)&&challengeFile.getline(reps[4],100)){
         cCount++;
+
     }
     challengeFile.close();
     userChallenge c[cCount];
@@ -216,6 +217,7 @@ void changeUsername(user& u, char usern[100]){
         cFile << reps[3] << endl;
         cFile << details[4] << endl;
         cFile << reps[4] << endl;
+                qDebug()<< "userchallenge "<<cCount;
     }
     cFile.close();
     ifstream workoutFile;
